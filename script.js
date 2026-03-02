@@ -86,6 +86,7 @@
     bgMusic.play().then(() => {
       musicPlaying = true
       musicToggle.textContent = '🔊'
+      loadSocialBar()
     }).catch(() => {})
   }
 
@@ -240,7 +241,6 @@
     }).catch(() => {})
     fireConfetti()
     goTo(stage2, stage3)
-    setTimeout(loadSocialBar, 2200)
   }
   skipReel.addEventListener('click', goToShare)
   reelVideo.addEventListener('ended', goToShare)
