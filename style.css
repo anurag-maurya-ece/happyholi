@@ -465,6 +465,13 @@ body::before {
   pointer-events: none;
 }
 
+/* ─── Performance Mode (kills animations during video) ─── */
+.perf-mode .particles,
+.perf-mode .emoji-rain,
+.perf-mode .splash-layer { display: none !important; }
+.perf-mode::before { animation: none !important; }
+.perf-mode .particle { animation: none !important; }
+
 /* ─── Responsive ─── */
 @media (max-width: 600px) {
   body { font-size: 15px; }

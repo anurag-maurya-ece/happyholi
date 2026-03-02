@@ -136,15 +136,30 @@
     const burst = (delay) =>
       setTimeout(() =>
         confetti({
-          particleCount: 150,
-          spread: 140,
-          startVelocity: 50,
-          gravity: 0.8,
-          ticks: 100,
+          particleCount: 80,
+          spread: 120,
+          startVelocity: 40,
+          gravity: 0.9,
+          ticks: 80,
           origin: { x: Math.random(), y: Math.random() * 0.5 },
           colors,
         }), delay)
-    burst(0); burst(180); burst(380); burst(600); burst(850)
+    burst(0); burst(200); burst(450)
+  }
+
+  /* ─── Performance: Pause/Resume heavy animations ─── */
+  let emojiInterval = null
+  function pauseHeavyAnimations () {
+    // Stop emoji rain
+    if (emojiInterval) { clearInterval(emojiInterval); emojiInterval = null }
+    // Remove existing emojis & particles from DOM
+    if (emojiRainEl) emojiRainEl.innerHTML = ''
+    // Pause all CSS animations via class on body
+    document.body.classList.add('perf-mode')
+  }
+  function resumeHeavyAnimations () {
+    document.body.classList.remove('perf-mode')
+    startEmojiRain()
   }
 
   /* ─── Gift Click → Stage 2 ─── */
@@ -158,6 +173,9 @@
     musicPlaying = false
     musicToggle.textContent = '🔇'
 
+    // Pause heavy stuff so video runs smooth
+    pauseHeavyAnimations()
+
     setTimeout(() => {
       goTo(stage1, stage2)
       reelVideo.play().catch(() => {})
@@ -167,6 +185,8 @@
   /* ─── Skip / Video End → Stage 3 ─── */
   function goToShare () {
     reelVideo.pause()
+    // Resume animations
+    resumeHeavyAnimations()
     // Resume bg music on share screen
     bgMusic.volume = 0.35
     bgMusic.play().then(() => {
@@ -229,7 +249,8 @@
   /* ─── Emoji Rain ─── */
   const HOLI_EMOJIS = ['\ud83c\udfa8','\ud83d\udc9c','\ud83d\udfe1','\ud83d\udd34','\ud83d\udfe2','\ud83d\udd35','\ud83d\udfe3','\ud83d\udca7','\ud83c\udf08','\ud83c\udf89','\ud83e\udd73','\ud83d\udc90','\ud83e\udeb7','\u2728']
   const emojiRainEl = $('#emojiRain')
-  if (emojiRainEl) {
+  function startEmojiRain () {
+    if (!emojiRainEl || emojiInterval) return
     function dropEmoji () {
       const em = document.createElement('span')
       em.className = 'rain-emoji'
@@ -240,9 +261,10 @@
       emojiRainEl.appendChild(em)
       setTimeout(() => em.remove(), 8500)
     }
-    setInterval(dropEmoji, 650)
+    emojiInterval = setInterval(dropEmoji, 900)
     dropEmoji()
   }
+  startEmojiRain()
 
   /* ─── Button Ripple ─── */
   document.querySelectorAll('.btn').forEach(btn => {
