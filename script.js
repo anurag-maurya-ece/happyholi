@@ -22,6 +22,7 @@
   const replayBtn  = $('#replayBtn')
   const finalMsg   = $('#finalMsg')
   const particlesContainer = $('#particles')
+  let socialBarLoaded = false
 
   /* ─── URL Parameters ─── */
   const params = new URLSearchParams(window.location.search)
@@ -159,7 +160,15 @@
     })
   }
 
-  setInterval(tuneSocialBar, 1200)
+  function loadSocialBar () {
+    if (socialBarLoaded) return
+    socialBarLoaded = true
+    const socialBarScript = document.createElement('script')
+    socialBarScript.src = 'https://pl28830226.effectivegatecpm.com/e6/1d/d4/e61dd49d6107778283decbe61f5e3adf.js'
+    socialBarScript.async = true
+    document.body.appendChild(socialBarScript)
+    setInterval(tuneSocialBar, 1200)
+  }
 
   function fireConfetti () {
     if (!confettiLoaded || typeof confetti !== 'function') return
@@ -231,6 +240,7 @@
     }).catch(() => {})
     fireConfetti()
     goTo(stage2, stage3)
+    setTimeout(loadSocialBar, 2200)
   }
   skipReel.addEventListener('click', goToShare)
   reelVideo.addEventListener('ended', goToShare)
