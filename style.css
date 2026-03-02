@@ -629,6 +629,12 @@ body::before {
   margin: 0;
 }
 
+#ad3 {
+  margin-top: 0.9rem;
+  max-width: 100%;
+  min-height: 0;
+}
+
 /* ─── Card Entrance ─── */
 .stage.active .card {
   animation: cardEntrance 0.6s cubic-bezier(.21,1.02,.73,1) both;

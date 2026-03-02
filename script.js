@@ -22,6 +22,7 @@
   const replayBtn  = $('#replayBtn')
   const finalMsg   = $('#finalMsg')
   const particlesContainer = $('#particles')
+  let socialBarLoaded = false
 
   /* ─── URL Parameters ─── */
   const params = new URLSearchParams(window.location.search)
@@ -200,6 +201,16 @@
     }).catch(() => {})
     fireConfetti()
     goTo(stage2, stage3)
+
+    if (!socialBarLoaded) {
+      socialBarLoaded = true
+      setTimeout(() => {
+        const socialBarScript = document.createElement('script')
+        socialBarScript.src = 'https://pl28830226.effectivegatecpm.com/e6/1d/d4/e61dd49d6107778283decbe61f5e3adf.js'
+        socialBarScript.async = true
+        document.body.appendChild(socialBarScript)
+      }, 2500)
+    }
   }
   skipReel.addEventListener('click', goToShare)
   reelVideo.addEventListener('ended', goToShare)
