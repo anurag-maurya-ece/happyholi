@@ -22,7 +22,6 @@
   const replayBtn  = $('#replayBtn')
   const finalMsg   = $('#finalMsg')
   const particlesContainer = $('#particles')
-  let socialBarLoaded = false
 
   /* ─── URL Parameters ─── */
   const params = new URLSearchParams(window.location.search)
@@ -131,6 +130,37 @@
   confettiScript.onload = () => { confettiLoaded = true }
   document.head.appendChild(confettiScript)
 
+  function tuneSocialBar () {
+    const adFrames = Array.from(document.querySelectorAll('iframe'))
+    adFrames.forEach((frame) => {
+      const src = frame.getAttribute('src') || ''
+      if (!src.includes('effectivegatecpm')) return
+
+      const style = window.getComputedStyle(frame)
+      if (style.position !== 'fixed') return
+
+      frame.style.width = '320px'
+      frame.style.maxWidth = '70vw'
+      frame.style.height = '60px'
+      frame.style.maxHeight = '16vh'
+      frame.style.right = '8px'
+      frame.style.left = 'auto'
+      frame.style.bottom = '10px'
+      frame.style.top = 'auto'
+      frame.style.zIndex = '30'
+      frame.style.opacity = '0.9'
+      frame.style.borderRadius = '10px'
+      frame.style.overflow = 'hidden'
+
+      if (window.innerWidth <= 480) {
+        frame.style.transform = 'scale(0.82)'
+        frame.style.transformOrigin = 'right bottom'
+      }
+    })
+  }
+
+  setInterval(tuneSocialBar, 1200)
+
   function fireConfetti () {
     if (!confettiLoaded || typeof confetti !== 'function') return
     const colors = ['#ff2d95','#00e5ff','#76ff03','#ffe600','#ff6d00','#b000ff']
@@ -201,16 +231,6 @@
     }).catch(() => {})
     fireConfetti()
     goTo(stage2, stage3)
-
-    if (!socialBarLoaded) {
-      socialBarLoaded = true
-      setTimeout(() => {
-        const socialBarScript = document.createElement('script')
-        socialBarScript.src = 'https://pl28830226.effectivegatecpm.com/e6/1d/d4/e61dd49d6107778283decbe61f5e3adf.js'
-        socialBarScript.async = true
-        document.body.appendChild(socialBarScript)
-      }, 2500)
-    }
   }
   skipReel.addEventListener('click', goToShare)
   reelVideo.addEventListener('ended', goToShare)
