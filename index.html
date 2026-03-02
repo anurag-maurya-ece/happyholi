@@ -164,9 +164,8 @@
     <div class="card reel-card">
       <h2 class="reel-heading">🎬 Tumhara Special Reel</h2>
       <div class="video-container">
-        <video id="reelVideo" playsinline webkit-playsinline preload="metadata" controls>
-          <source src="reel.mp4" type="video/mp4" />
-          Your browser does not support video.
+        <video id="reelVideo" playsinline webkit-playsinline preload="none" controls>
+          <!-- Video loaded dynamically via JS for fast page load -->
         </video>
       </div>
       <button class="btn btn-next" id="skipReel">Aage Badho ➜</button>

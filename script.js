@@ -178,6 +178,11 @@
 
     setTimeout(() => {
       goTo(stage1, stage2)
+      // Lazy load video NOW (not at page load)
+      if (!reelVideo.src || !reelVideo.src.includes('reel.mp4')) {
+        reelVideo.src = 'reel.mp4'
+        reelVideo.load()
+      }
       reelVideo.play().catch(() => {})
     }, 900)
   })

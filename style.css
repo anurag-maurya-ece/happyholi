@@ -469,8 +469,12 @@ body::before {
 .perf-mode .particles,
 .perf-mode .emoji-rain,
 .perf-mode .splash-layer { display: none !important; }
-.perf-mode::before { animation: none !important; }
+.perf-mode::before { animation: none !important; filter: none !important; }
 .perf-mode .particle { animation: none !important; }
+.perf-mode .card { backdrop-filter: none !important; -webkit-backdrop-filter: none !important; box-shadow: none !important; }
+.perf-mode .card::before { animation: none !important; }
+.perf-mode .reel-heading { text-shadow: none !important; }
+.perf-mode .video-container { box-shadow: none !important; border: 1px solid rgba(255,255,255,0.1); }
 
 /* ─── Responsive ─── */
 @media (max-width: 600px) {
