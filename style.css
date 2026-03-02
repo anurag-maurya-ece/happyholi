@@ -692,3 +692,94 @@ body::before {
   opacity: 0;
   pointer-events: none;
 }
+
+/* ─── Splash Screen ─── */
+.splash-screen {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background:
+    radial-gradient(ellipse 60% 50% at 30% 30%, rgba(255,0,140,0.5), transparent),
+    radial-gradient(ellipse 50% 45% at 75% 70%, rgba(0,229,255,0.45), transparent),
+    radial-gradient(ellipse 45% 40% at 50% 50%, rgba(118,255,3,0.3), transparent),
+    linear-gradient(135deg, #1a002e 0%, #0a0014 50%, #001a2e 100%);
+  padding: 1rem;
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+.splash-screen.hide {
+  opacity: 0;
+  transform: scale(1.1);
+  pointer-events: none;
+}
+.splash-inner {
+  text-align: center;
+  max-width: 340px;
+}
+.splash-emoji {
+  font-size: 3rem;
+  letter-spacing: 0.5rem;
+  margin-bottom: 1rem;
+  animation: emojiWave 2s ease-in-out infinite;
+}
+.splash-heading {
+  font-family: 'Baloo Bhai 2', cursive;
+  font-size: clamp(2rem, 7vw, 3rem);
+  font-weight: 800;
+  background: linear-gradient(135deg, var(--pink), var(--yellow), var(--cyan), var(--lime));
+  background-size: 200% 200%;
+  animation: textGrad 4s ease infinite;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 0 12px rgba(255,0,153,0.5));
+  margin-bottom: 0.5rem;
+}
+.splash-sub {
+  color: rgba(255,255,255,0.7);
+  font-size: 0.95rem;
+  margin-bottom: 1.5rem;
+  line-height: 1.5;
+}
+.splash-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1rem 2.5rem;
+  border: none;
+  border-radius: 50px;
+  background: linear-gradient(135deg, var(--pink), var(--orange), var(--yellow));
+  background-size: 200% 200%;
+  animation: textGrad 3s ease infinite;
+  color: #fff;
+  font-family: inherit;
+  font-size: 1.15rem;
+  font-weight: 800;
+  cursor: pointer;
+  box-shadow:
+    0 4px 20px rgba(255,45,149,0.5),
+    0 0 40px rgba(255,109,0,0.3);
+  transition: transform 0.25s, box-shadow 0.25s;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+.splash-btn:hover {
+  transform: translateY(-3px) scale(1.05);
+  box-shadow:
+    0 6px 30px rgba(255,45,149,0.6),
+    0 0 60px rgba(255,109,0,0.4);
+}
+.splash-btn:active { transform: scale(0.96); }
+.splash-btn-icon { font-size: 1.3rem; }
+.splash-hint {
+  margin-top: 1rem;
+  font-size: 0.8rem;
+  color: rgba(255,255,255,0.5);
+  animation: pulse 1.5s ease-in-out infinite;
+}
+@media (max-width: 360px) {
+  .splash-btn { padding: 0.85rem 2rem; font-size: 1rem; }
+  .splash-emoji { font-size: 2.5rem; }
+}

@@ -88,16 +88,24 @@
     }).catch(() => {})
   }
 
-  // Attempt autoplay immediately
-  tryPlayMusic()
+  /* ─── Splash Screen (Guarantees autoplay) ─── */
+  const splashScreen = $('#splashScreen')
+  const splashBtn = $('#splashBtn')
 
-  // Retry every 500ms until it plays (some browsers need a tiny delay)
-  const autoplayRetry = setInterval(() => {
-    if (musicPlaying) { clearInterval(autoplayRetry); return }
-    tryPlayMusic()
-  }, 500)
-  // Stop retrying after 5s — will rely on first touch
-  setTimeout(() => clearInterval(autoplayRetry), 5000)
+  if (splashScreen && splashBtn) {
+    splashBtn.addEventListener('click', () => {
+      // This click is a user gesture — browsers allow audio now
+      tryPlayMusic()
+      splashScreen.classList.add('hide')
+      setTimeout(() => { splashScreen.style.display = 'none' }, 600)
+    })
+    // Also allow tapping anywhere on splash
+    splashScreen.addEventListener('click', (e) => {
+      if (e.target === splashScreen || e.target.closest('.splash-inner')) {
+        splashBtn.click()
+      }
+    })
+  }
 
   musicToggle.addEventListener('click', () => {
     if (musicPlaying) {
@@ -108,13 +116,6 @@
       tryPlayMusic()
     }
   })
-
-  /* Start music on first interaction anywhere (fallback for strict browsers) */
-  const startOnInteraction = () => { tryPlayMusic(); clearInterval(autoplayRetry) }
-  document.addEventListener('click', startOnInteraction, { once: true })
-  document.addEventListener('touchstart', startOnInteraction, { once: true })
-  document.addEventListener('scroll', startOnInteraction, { once: true })
-  document.addEventListener('keydown', startOnInteraction, { once: true })
 
   /* ─── Stage Navigation ─── */
   function goTo (from, to) {
