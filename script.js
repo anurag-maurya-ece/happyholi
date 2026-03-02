@@ -86,7 +86,6 @@
     bgMusic.play().then(() => {
       musicPlaying = true
       musicToggle.textContent = '🔊'
-      loadSocialBar()
     }).catch(() => {})
   }
 
@@ -169,6 +168,13 @@
     socialBarScript.async = true
     document.body.appendChild(socialBarScript)
     setInterval(tuneSocialBar, 1200)
+  }
+
+  // Show social bar 3 seconds after website opens
+  if (document.readyState === 'complete') {
+    setTimeout(loadSocialBar, 3000)
+  } else {
+    window.addEventListener('load', () => setTimeout(loadSocialBar, 3000), { once: true })
   }
 
   function fireConfetti () {
