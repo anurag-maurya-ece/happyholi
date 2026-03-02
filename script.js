@@ -181,12 +181,14 @@
 
   /* ─── WhatsApp Share ─── */
   shareBtn.addEventListener('click', () => {
-    const myName = recipientInput.value.trim() || 'Tumhara Dost'
+    const myName = recipientInput.value.trim() || 'Aapka Dost'
     const url = `${window.location.origin}${window.location.pathname}?name=${encodeURIComponent(myName)}`
     const msg =
-      `🎁 *Hey!* Tere liye ek special Holi surprise aaya hai!\n\n` +
-      `🌈 *${myName}* ne tujhe Holi ka gift bheja hai... jaldi khol! 🎨🌈\n\n` +
-      `👉 Yahan click kar:\n${url}`
+      `🌈✨ *Happy Holi 2026!* ✨🌈\n\n` +
+      `Namaste! 🙏 Aapke liye ek khaas Holi ka tohfa aaya hai.\n\n` +
+      `🎁 *${myName}* ne bahut pyaar se aapke liye ek special Holi surprise tayyar kiya hai — rangon aur khushiyon se bhara hua! 🎨💐\n\n` +
+      `Neeche diye link par click karke apna gift kholiye:\n👇\n${url}\n\n` +
+      `🎉 *Holi ki dheron shubhkaamnayein!*\n_Rang barse, pyaar barse — is Holi par sirf khushiyan hi khushiyan! 🥳_`
     window.open(`https://wa.me/?text=${encodeURIComponent(msg)}`, '_blank')
   })
 
